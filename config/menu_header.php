@@ -5,7 +5,7 @@ return [
     'items' => [
         [],
         [
-            'title' => 'Dashboard',
+            'title' => 'Neki',
             'root' => true,
             'page' => '/',
             'new-tab' => false,
