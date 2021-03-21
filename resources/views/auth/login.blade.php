@@ -10,7 +10,7 @@
     @csrf
 
     <div class="form-group mb-5">
-        <input id="email" type="email" class="form-control h-auto form-control-solid py-4 px-8 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+        <input id="email" type="email" class="form-control h-auto form-control-solid py-4 px-8 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email" autofocus>
 
         @error('email')
             <span class="invalid-feedback" role="alert">
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group mb-5">
-        <input id="password" type="password" class="form-control h-auto form-control-solid py-4 px-8 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Geslo">
+        <input id="password" type="password" class="form-control h-auto form-control-solid py-4 px-8 @error('password') is-invalid @enderror" name="password" autocomplete="current-password" placeholder="Geslo">
 
             @error('password')
                 <span class="invalid-feedback" role="alert">
