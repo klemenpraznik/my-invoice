@@ -83,11 +83,11 @@ return [
             'submenu' => [
                 [
                     'title' => 'Seznam kategorij',
-                    'page' => 'category'
+                    'page' => 'categories'
                 ],
                 [
                     'title' => 'Nova kategorija',
-                    'page' => 'category/new'
+                    'page' => 'category/create'
                 ]
             ]
         ]
