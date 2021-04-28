@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         App\Providers\MetronicServiceProvider::class,
-
+        'Barryvdh\Debugbar\ServiceProvider',
         /*
          * Application Service Providers...
          */
@@ -177,6 +177,15 @@ return [
         App\Providers\RouteServiceProvider::class,
 
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Debugger
+    |--------------------------------------------------------------------------
+    |
+    */
+    
+    'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     /*
     |--------------------------------------------------------------------------

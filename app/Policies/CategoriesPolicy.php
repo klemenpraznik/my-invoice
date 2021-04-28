@@ -18,7 +18,7 @@ class CategoriesPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return True;
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoriesPolicy
      */
     public function view(User $user, Category $category)
     {
-        //
+        return $user->id == $category->user_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoriesPolicy
      */
     public function create(User $user)
     {
-        //
+        return True;
     }
 
     /**
@@ -53,7 +53,7 @@ class CategoriesPolicy
      */
     public function update(User $user, Category $category)
     {
-        return $category->id == $user->user_id;
+        return $category->user_id == $user->id;
     }
 
     /**

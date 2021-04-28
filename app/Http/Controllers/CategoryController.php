@@ -11,6 +11,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // $this->authorizeResource(Category::class);
     }
 
     public function index()
@@ -40,6 +41,10 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        // \Debugbar::info($category->user);
+        // dd(auth()->user()->id);
+        $this->authorize('view', $category);
+
         $page_title = 'Kategorija';
         return view('category/details', compact('page_title', 'category'));
     }
@@ -56,8 +61,7 @@ class CategoryController extends Controller
             'name' => 'required|min:3|max:50',
             'description' => ''
         ]);
-
-        // auth()->user()->categories()->update($data);
+        //auth()->user()->categories()->update($data);
         $category->update($data);
         return redirect("/categories");
     }
