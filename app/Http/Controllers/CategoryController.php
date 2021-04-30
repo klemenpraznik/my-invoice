@@ -41,8 +41,6 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        // \Debugbar::info($category->user);
-        // dd(auth()->user()->id);
         $this->authorize('view', $category);
 
         $page_title = 'Kategorija';
@@ -51,6 +49,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        $this->authorize('view', $category);
+
         $page_title = 'Urejanje kategorije';
         return view('category/edit', compact('page_title', 'category'));
     }
@@ -61,9 +61,14 @@ class CategoryController extends Controller
             'name' => 'required|min:3|max:50',
             'description' => ''
         ]);
-        //auth()->user()->categories()->update($data);
         $category->update($data);
         return redirect("/categories");
     }
 
+    public function delete(Category $category){
+        $this->authorize('delete', $category);
+        $category->delete();
+
+        return redirect("/categories");
+    }
 }

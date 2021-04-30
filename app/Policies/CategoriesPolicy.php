@@ -41,7 +41,7 @@ class CategoriesPolicy
      */
     public function create(User $user)
     {
-        return True;
+    
     }
 
     /**
@@ -65,7 +65,7 @@ class CategoriesPolicy
      */
     public function delete(User $user, Category $category)
     {
-        //
+        return $category->user_id == $user->id;
     }
 
     /**

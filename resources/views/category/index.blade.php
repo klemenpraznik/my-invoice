@@ -8,6 +8,11 @@
                 <div class="card-header">Seznam kategorij</div>
 
                 <div class="card-body">
+                    <form action="/category/delete/8" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-default" type="submit">Delete</button>
+                    </form>
                     @foreach (Auth::user()->categories as $category)
                         {{ $category->name }}: {{ $category->description }} ( {{ $category->user->name}})<br>
                     @endforeach

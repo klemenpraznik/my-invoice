@@ -42,3 +42,4 @@ Route::post('/category', [App\Http\Controllers\CategoryController::class, 'store
 Route::get('/category/details/{category}', [App\Http\Controllers\CategoryController::class, 'show']);
 Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit']);
 Route::patch('/category/{category}', [App\Http\Controllers\CategoryController::class, 'update']);
+Route::delete('/category/delete/{category}', [App\Http\Controllers\CategoryController::class, 'delete']);
