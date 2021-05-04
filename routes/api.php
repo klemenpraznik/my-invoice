@@ -21,6 +21,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('categories', function() {
-    return Category::all();
+Route::get('user/{id}/categories', function(Int $id, Request $request) {
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+    return $user->categories;
+    // return Category::all();
 });
