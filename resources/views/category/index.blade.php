@@ -34,6 +34,7 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
@@ -80,11 +81,14 @@
         $("#categories").on("click", ".js-delete",
             function () {
                 var button = $(this);
+                console.log("neki");
                 bootbox.confirm("Ali ste pripričani, da želite izbrisati to kategorijo?",
                     function (result) {
+                        console.log("neki 2");
                         if (result) {
                             $.ajax({
-                                url: "/api/category/" + button.attr("data-category-id"),
+                                headers: { "api_token" : "{{auth()->user()->api_token}}" },
+                                url: "/api/user/{{auth()->user()->id}}/category/" + button.attr("data-category-id"),
                                 method: "DELETE",
                                 success: function () {
                                     button.parents("tr").remove();
