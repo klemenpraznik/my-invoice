@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// Categories
 Route::get('user/{id}/categories', function(Int $id, Request $request) {
     $api_token = $request->header('api_token');
     if ($api_token == null) {
@@ -56,3 +58,21 @@ Route::delete('user/{id}/category/{category_id}', function(Int $id, Int $categor
     $category->delete();
     return response()->json("Success", 200);
 });
+
+// Clients
+Route::get('user/{id}/clients', function(Int $id, Request $request) {
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+    return $user->clients;
+    // return Category::all();
+});
+

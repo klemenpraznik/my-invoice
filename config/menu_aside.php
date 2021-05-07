@@ -32,11 +32,11 @@ return [
             'submenu' => [
                 [
                     'title' => 'Seznam strank',
-                    'page' => 'client'
+                    'page' => 'clients'
                 ],
                 [
                     'title' => 'Nova stranka',
-                    'page' => 'client/new'
+                    'page' => 'client/create'
                 ]
             ]
         ],

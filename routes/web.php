@@ -43,3 +43,8 @@ Route::get('/category/details/{category}', [App\Http\Controllers\CategoryControl
 Route::get('/category/edit/{category}', [App\Http\Controllers\CategoryController::class, 'edit']);
 Route::patch('/category/{category}', [App\Http\Controllers\CategoryController::class, 'update']);
 Route::delete('/category/delete/{category}', [App\Http\Controllers\CategoryController::class, 'delete']);
+
+// Clients controller
+Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients');
+Route::get('/client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('clients');
+Route::post('/client', [App\Http\Controllers\ClientController::class, 'store']);
