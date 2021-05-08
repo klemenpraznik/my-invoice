@@ -41,19 +41,19 @@ return [
             ]
         ],
         [
-            'title' => 'Izdelki / storitve',
+            'title' => 'Izdelki',
             'desc' => '',
             'icon' => 'media/svg/icons/Menu icons/Item.svg',
             'bullet' => 'dot',
             'root' => true,
             'submenu' => [
                 [
-                    'title' => 'Seznam izdelkov / storitev',
-                    'page' => 'product'
+                    'title' => 'Seznam izdelkov',
+                    'page' => 'products'
                 ],
                 [
                     'title' => 'Nov izdelek',
-                    'page' => 'product/new'
+                    'page' => 'product/create'
                 ]
             ]
         ],

@@ -2,32 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
-
-// Demo routes
-// Route::get('/datatables', 'PagesController@datatables');
-// Route::get('/ktdatatables', 'PagesController@ktDatatables');
-// Route::get('/select2', 'PagesController@select2');
-// Route::get('/jquerymask', 'PagesController@jQueryMask');
-// Route::get('/icons/custom-icons', 'PagesController@customIcons');
-// Route::get('/icons/flaticon', 'PagesController@flaticon');
-// Route::get('/icons/fontawesome', 'PagesController@fontawesome');
-// Route::get('/icons/lineawesome', 'PagesController@lineawesome');
-// Route::get('/icons/socicons', 'PagesController@socicons');
-// Route::get('/icons/svg', 'PagesController@svg');
-// // Quick search dummy route to display html elements in search dropdown (header search)
-
 Auth::routes();
 
 // Home controller
@@ -48,3 +22,16 @@ Route::delete('/category/delete/{category}', [App\Http\Controllers\CategoryContr
 Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients');
 Route::get('/client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('clients');
 Route::post('/client', [App\Http\Controllers\ClientController::class, 'store']);
+Route::get('/client/details/{client}', [App\Http\Controllers\ClientController::class, 'show']);
+Route::get('/client/edit/{client}', [App\Http\Controllers\ClientController::class, 'edit']);
+Route::patch('/client/{client}', [App\Http\Controllers\ClientController::class, 'update']);
+Route::delete('/client/delete/{client}', [App\Http\Controllers\ClientController::class, 'delete']);
+
+// Products controller
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+Route::get('/product/create', [App\Http\Controllers\ProductController::class, 'create'])->name('productss');
+Route::post('/product', [App\Http\Controllers\ProductController::class, 'store']);
+Route::get('/product/details/{product}', [App\Http\Controllers\ProductController::class, 'show']);
+Route::get('/product/edit/{product}', [App\Http\Controllers\ProductController::class, 'edit']);
+Route::patch('/product/{product}', [App\Http\Controllers\ProductController::class, 'update']);
+Route::delete('/product/delete/{product}', [App\Http\Controllers\ProductController::class, 'delete']);

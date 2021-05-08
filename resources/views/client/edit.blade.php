@@ -1,6 +1,7 @@
 @extends('layout.default')
 
 @section('content')
+
 @php 
 $client_type = array("Fizicna oseba" => "Fizična oseba", "Pravna oseba" => "Pravna oseba", "s.p." => "Samostojni podjetnik", "Drugo" => "Drugo");
 $country_list = array(
@@ -208,11 +209,13 @@ $country_list = array(
     <div class="card card-custom col-lg-12">
             <div class="card-header">
                 <h3 class="card-title">
-                    Dodajanje nove stranke
+                    Urejanje stranke - {{ $client->name }}
                 </h3>
             </div>
-            <form method="POST" action="/client" encrypte="multipart/form-data">
+            <form method="POST" action="/client/{{ $client-> id }}" encrypte="multipart/form-data">
                 @csrf
+                @method('PATCH')
+
                 <div class="card-body">
 
                     {{-- Prva vrsta --}}
@@ -224,7 +227,7 @@ $country_list = array(
                                     class="form-control @error('name') is-invalid @enderror" 
                                     name="name" 
                                     placeholder="Vnesite ime in priimek stranke ali ime podjetja" 
-                                    value="{{old('name')}}"
+                                    value="{{old('name') ??  $client->name}}"
                                     autofocus>
     
                             @if ($errors->has('name'))
@@ -240,7 +243,8 @@ $country_list = array(
                                     <input  id="taxPayer"
                                             name="taxPayer"
                                             type="checkbox"                     
-                                            class="form-control" checked/>
+                                            class="form-control" 
+                                            {{ ($client->taxPayer) ? "checked" : "" }}/>
                                     <span></span>
                                 </label>
                             </span>
@@ -257,10 +261,10 @@ $country_list = array(
                                     class="form-control"
                                     required>
                                     @foreach ($client_type as $key => $value)
-                                    <option value="{{ $key }}"> 
-                                        {{ $value }}                             
-                                    </option>
-                                @endforeach 
+                                        <option value="{{ $key }}" {{ ( $key == $client->type) ? 'selected' : '' }}> 
+                                            {{ $value }}                             
+                                        </option>
+                                    @endforeach 
                             </select>
                             @if ($errors->has('type'))
                                 <span class="invalid-feedback" role="alert">
@@ -275,7 +279,7 @@ $country_list = array(
                                     type="text"
                                     class="form-control @error('registrationNumber') is-invalid @enderror" 
                                     name="registrationNumber" 
-                                    value="{{old('registrationNumber')}}">
+                                    value="{{old('registrationNumber') ??  $client->registrationNumber}}">
     
                             @if ($errors->has('registrationNumber'))
                                 <span class="invalid-feedback" role="alert">
@@ -290,7 +294,7 @@ $country_list = array(
                                     type="text"
                                     class="form-control @error('taxNumber') is-invalid @enderror" 
                                     name="taxNumber"
-                                    value="{{old('taxNumber')}}">
+                                    value="{{old('taxNumber')  ??  $client->taxNumber}}">
     
                             @if ($errors->has('taxNumber'))
                                 <span class="invalid-feedback" role="alert">
@@ -309,7 +313,7 @@ $country_list = array(
                                     class="form-control @error('address') is-invalid @enderror" 
                                     name="address" 
                                     placeholder="Slovenska cesta 1, 1000 Ljubljana"
-                                    value="{{old('address')}}">
+                                    value="{{old('address')  ??  $client->address}}">
     
                             @if ($errors->has('address'))
                                 <span class="invalid-feedback" role="alert">
@@ -325,10 +329,10 @@ $country_list = array(
                                     class="form-control"
                                     required>
                                     @foreach ($country_list as $key => $value)
-                                        <option value="{{ $value }}" {{ ( $value == "Slovenia") ? 'selected' : '' }}> 
+                                        <option value="{{ $value }}" {{ ( $value == $client->country) ? 'selected' : '' }}> 
                                             {{ $value }}                             
                                         </option>
-                                    @endforeach  
+                                    @endforeach    
                             </select>
                             @if ($errors->has('country'))
                                 <span class="invalid-feedback" role="alert">
@@ -347,7 +351,7 @@ $country_list = array(
                                     class="form-control @error('email') is-invalid @enderror" 
                                     name="email" 
                                     placeholder="naslov@mail.com"
-                                    value="{{old('email')}}">
+                                    value="{{old('email')  ??  $client->email}}">
     
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -363,7 +367,7 @@ $country_list = array(
                                     class="form-control @error('phone') is-invalid @enderror" 
                                     name="phone" 
                                     placeholder="040 111 222"
-                                    value="{{old('phone')}}">
+                                    value="{{old('phone')  ??  $client->phone}}">
     
                             @if ($errors->has('phone'))
                                 <span class="invalid-feedback" role="alert">
