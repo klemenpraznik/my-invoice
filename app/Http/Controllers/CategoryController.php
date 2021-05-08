@@ -41,6 +41,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        dd($category);
         $this->authorize('view', $category);
 
         $page_title = 'Kategorija';
@@ -66,9 +67,6 @@ class CategoryController extends Controller
     }
 
     public function delete(Category $category){
-        $this->authorize('delete', $category);
-        $category->delete();
-
-        return redirect("/categories");
+        //works via API
     }
 }
