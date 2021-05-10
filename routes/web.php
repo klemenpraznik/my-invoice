@@ -35,3 +35,12 @@ Route::get('/product/details/{product}', [App\Http\Controllers\ProductController
 Route::get('/product/edit/{product}', [App\Http\Controllers\ProductController::class, 'edit']);
 Route::patch('/product/{product}', [App\Http\Controllers\ProductController::class, 'update']);
 Route::delete('/product/delete/{product}', [App\Http\Controllers\ProductController::class, 'delete']);
+
+// Invoice controller
+Route::get('/invoices', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoices');
+Route::get('/invoice/create', [App\Http\Controllers\InvoiceController::class, 'create'])->name('invoices');
+Route::post('/invoice', [App\Http\Controllers\InvoiceController::class, 'store']);
+Route::get('/invoice/details/{invoice}', [App\Http\Controllers\InvoiceController::class, 'show']);
+Route::get('/invoice/edit/{prinvoiceoduct}', [App\Http\Controllers\InvoiceController::class, 'edit']);
+Route::patch('/invoice/{invoice}', [App\Http\Controllers\InvoiceController::class, 'update']);
+Route::delete('/invoice/delete/{invoice}', [App\Http\Controllers\InvoiceController::class, 'delete']);

@@ -22,6 +22,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Šifra</th>
                                 <th scope="col">Ime izdelka</th>
+                                <th scope="col">Kategorija</th>
                                 <th scope="col">Prodajna cena</th>
                                 <th scope="col">Tip</th>
                                 <th scope="col" data-priority="2">Akcije</th>
@@ -69,6 +70,10 @@
                     },
                     responsivePriority: 1,
                     targets: 0
+                },
+                {
+                    data: "category.name",
+                    defaultContent: "",
                 },
                 {
                     data: "sellingPrice",

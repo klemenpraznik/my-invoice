@@ -97,8 +97,7 @@ Route::get('user/{id}/products', function(Int $id, Request $request) {
     if ($user->api_token != $request->header('api_token')) {
         return response()->json(['error' => 'Forbidden'], 403); 
     }
-    return $user->products;
-    // return Category::all();
+    return $user->products->load(['category']);
 });
 
 Route::delete('user/{id}/product/{product_id}', function(Int $id, Int $product_id, Request $request) {
@@ -121,3 +120,78 @@ Route::delete('user/{id}/product/{product_id}', function(Int $id, Int $product_i
     return response()->json("Success", 200);
 });
 
+// Invoices
+Route::get('user/{id}/invoices', function(Int $id, Request $request) {
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+    
+    return $user->invoices->load(['client']);
+});
+
+Route::post('user/{id}/invoice', function(Int $id, Request $request) {
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+
+    $data = request()->validate([
+        'clientId' => '',
+        'invoiceDate' => 'nullable|date',
+        'invoiceServiceFrom' => 'nullable|date',
+        'invoiceServiceUntil' => 'nullable|date',
+        'invoiceDateOfMaturity' => 'nullable|date',
+        'invoiceDateOfOrder' => 'nullable|date',
+        'totalExcludingVAT' => 'nullable|numeric',
+        'discountAmount' => 'nullable|numeric',
+        'amountExludingVAT' => 'nullable|numeric',
+        'amountIncludingVAT' => 'nullable|numeric',
+        'paidAmount' => 'nullable|numeric'        
+    ]);
+    
+    $data['client_id'] = $data['clientId'];
+    unset($data['clientId']);
+    $data['user_id'] = $user->id;
+    $data['discountPercent'] = 0;
+    $data['created_at'] = date("Y-m-d H:i:s");;
+    $data['updated_at'] = date("Y-m-d H:i:s");;
+    //dd($data);
+    $new_id = $user->invoices()->create($data)->id;
+    //dd($new_id);
+    return response()->json(array('success' => true, 'new_id' => $new_id), 200);
+});
+
+Route::delete('user/{id}/invoice/{invoice_id}', function(Int $id, Int $invoice_id, Request $request) {
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+    $invoice = $user->invoices->find($invoice_id);
+    if ($invoice == null) {
+        return response()->json(['error' => 'Invoice not found.'], 404);
+    }
+    $invoice->delete();
+    return response()->json("Success", 200);
+});

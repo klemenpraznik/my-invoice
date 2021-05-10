@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Invoice extends Model
 {
     use HasFactory;
     protected $guarded = []; 
@@ -14,7 +14,7 @@ class Client extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function invoices(){
-        return $this->hasMany(Invoice::class);
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
 }
