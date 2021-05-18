@@ -33,7 +33,11 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice)
     {
-        //
+        $this->authorize('view', $invoice);
+
+        //dd($invoice->articles->find(1)->product);
+        $page_title = 'Račun';
+        return view('invoice/details', compact('page_title', 'invoice'));
     }
 
     public function edit(Invoice $invoice)

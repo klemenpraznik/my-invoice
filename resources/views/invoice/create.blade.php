@@ -313,8 +313,8 @@ $products = Auth::user()->products;
 			method: "POST",
 			success: function (data) {
 				var docId = data['new_id'];
-				bootbox.alert("Račun s št. " + docId + " je bil uspešno ustvarjen!");
-				//articles(docId);
+				//bootbox.alert("Račun s št. " + docId + " je bil uspešno ustvarjen!");
+				articles(docId);
 				//console.log("invoice post");
 			},
 			fail: function (data) {
@@ -435,13 +435,19 @@ $products = Auth::user()->products;
 		var articlesJson = JSON.stringify(postObject);
 		console.log(articlesJson);
 		$.ajax({
-			url: "/api/articles/" + docId,
-			contentType: "application/json",
+			headers: { "api_token" : "{{auth()->user()->api_token}}" },
+            url: "/api/user/{{auth()->user()->id}}/articles",
 			data: articlesJson,
+			contentType: "application/json",
 			method: "POST",
+
+			// url: "/api/articles/" + docId,
+			// contentType: "application/json",
+			// data: articlesJson,
+			// method: "POST",
 			success: function () {
 				bootbox.confirm("Dokument s št. '" + docId + "' je bil uspešno ustvarjen!", function (result) {
-					location.href = "/document/details/" + docId;
+					location.href = "/invoice/details/" + docId;
 				});
 				
 			},
@@ -451,8 +457,11 @@ $products = Auth::user()->products;
 			error: function (jqXHR, textStatus, errorThrown) {
 				bootbox.alert("Prišlo je do napake: " + jqXHR.status + " (" + errorThrown + ") pri dodajanju postavk. Preverite vnosna polja pri postavkah!");
 				$.ajax({
-					url: "/api/document/" + docId,
-					method: "DELETE",
+					headers: { "api_token" : "{{auth()->user()->api_token}}" },
+                    url: "/api/user/{{auth()->user()->id}}/invoice/" + docId,
+                    method: "DELETE",
+					// url: "/api/document/" + docId,
+					// method: "DELETE",
 					success: function () {
 						
 					}

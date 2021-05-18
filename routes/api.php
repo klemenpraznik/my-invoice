@@ -195,3 +195,36 @@ Route::delete('user/{id}/invoice/{invoice_id}', function(Int $id, Int $invoice_i
     $invoice->delete();
     return response()->json("Success", 200);
 });
+
+//Articles
+Route::post('user/{id}/articles', function(Int $id, Request $request) {
+    
+    $api_token = $request->header('api_token');
+    if ($api_token == null) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+    $user = User::find($id);
+    if ($user == null) {
+        return response()->json(['error' => 'User not found.'], 404);
+    }
+    if ($user->api_token != $request->header('api_token')) {
+        return response()->json(['error' => 'Forbidden'], 403); 
+    }
+
+    $invoice = $user->invoices()->find($request['documentId']);
+    //dd($invoice);
+
+    $list_od_articles = $request['articles'];
+
+
+    foreach($list_od_articles as $single_article){
+        $single_article['invoice_id'] = $single_article['documentId'];
+        unset($single_article['documentId']);
+
+        $single_article['product_id'] = $single_article['productId'];
+        unset($single_article['productId']);
+
+        $invoice->articles()->create($single_article);
+    }
+    return response()->json("Success", 200);
+});
