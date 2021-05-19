@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use PDF;
+
+function generateFileName(Invoice $invoice){
+    return "racun-" . $invoice->id . "-" . strtolower(str_replace(" ", "-", $invoice->client->name));
+}
 
 class InvoiceController extends Controller
 {
@@ -38,6 +43,24 @@ class InvoiceController extends Controller
         //dd($invoice->articles->find(1)->product);
         $page_title = 'Račun';
         return view('invoice/details', compact('page_title', 'invoice'));
+    }
+
+    
+
+    public function createPDF(Invoice $invoice) {
+        // dd($invoice->user);
+        // $data = $invoice
+        // https://www.positronx.io/laravel-pdf-tutorial-generate-pdf-with-dompdf-in-laravel/
+
+        // share data to view
+        view()->share('invoice', $invoice);
+
+        $pdf = PDF::loadView('invoice/export', $invoice);
+
+        $fileName = generateFileName($invoice);
+
+        // download PDF file with download method
+        return $pdf->download($fileName);
     }
 
     public function edit(Invoice $invoice)

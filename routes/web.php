@@ -44,3 +44,4 @@ Route::get('/invoice/details/{invoice}', [App\Http\Controllers\InvoiceController
 Route::get('/invoice/edit/{prinvoiceoduct}', [App\Http\Controllers\InvoiceController::class, 'edit']);
 Route::patch('/invoice/{invoice}', [App\Http\Controllers\InvoiceController::class, 'update']);
 Route::delete('/invoice/delete/{invoice}', [App\Http\Controllers\InvoiceController::class, 'delete']);
+Route::get('/invoice/export/{invoice}', [App\Http\Controllers\InvoiceController::class, 'createPDF']);
