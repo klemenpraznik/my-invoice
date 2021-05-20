@@ -11,7 +11,7 @@
 
         {{-- Nav --}}
         <div class="nav nav-dark order-1 order-md-2">
-            <a href="https://keenthemes.com/metronic" target="_blank" class="nav-link pr-3 pl-0">O projektu</a>
+            <a href="/about-project" class="nav-link pr-3 pl-0">O projektu</a>
         </div>
     </div>
 </div>

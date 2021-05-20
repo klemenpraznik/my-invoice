@@ -48,9 +48,11 @@ class InvoiceController extends Controller
     
 
     public function createPDF(Invoice $invoice) {
-        // dd($invoice->user);
+        //dd($invoice->user->display_color);
         // $data = $invoice
         // https://www.positronx.io/laravel-pdf-tutorial-generate-pdf-with-dompdf-in-laravel/
+
+        $this->authorize('view', $invoice);
 
         // share data to view
         view()->share('invoice', $invoice);

@@ -8,7 +8,7 @@
             <div class="card card-custom">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Računi
+                        Računi ({{ Auth::user()->display_color }})
                     </h3>
                     <div style="display: grid; align-items: center;">
                         <a href="invoice/create" class="btn btn-primary">Dodaj račun</a>

@@ -112,6 +112,20 @@
 		            </div>
 		        </div>
 		    </a> --}}
+			<a href="/settings"	class="navi-item">
+		        <div class="navi-link">
+		            <div class="symbol symbol-40 bg-light mr-3">
+		                <div class="symbol-label">
+							{{ Metronic::getSVG("media/svg/icons/General/Settings-2.svg", "svg-icon-md svg-icon-secondary") }}
+						</div>
+		            </div>
+		            <div class="navi-text">
+		                <div class="font-weight-bold">
+		                    Nastavitve računa
+		                </div>
+		            </div>
+		        </div>	
+		    </a>
 			<div class="separator separator-dashed mt-8 mb-5"></div>
 			<a href="{{ route('logout') }}"	onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="navi-item">
 		        <div class="navi-link">

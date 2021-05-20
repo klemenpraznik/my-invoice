@@ -1,4 +1,13 @@
 <!doctype html>
+@php
+$color = "";
+if (empty($invoice->user->display_color)){
+    $color = "#1e1e2d";
+}  
+else {
+    $color = $invoice->user->display_color;
+}
+@endphp
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +41,9 @@
             margin-left: 15px;
         }
         .information {
-            background-color: #1e1e2d;
+            /* background-color: #1e1e2d; */
+            /* background-color: {{ $invoice->user->display_color }}; */
+            background-color: {{ $color }};
             color: #FFF;
         }
         .information .logo {
@@ -52,24 +63,46 @@
             <td align="left" style="width: 40%;">
                 <h3>{{ $invoice->client->name}}</h3>
 <pre>
-{{ $invoice->client->address}},{{ $invoice->client->country}}
+{{ $invoice->client->address}}, {{ $invoice->client->country}}
 {{ $invoice->client->phone}}
 {{ $invoice->client->email}}
 </pre>
 
 
             </td>
-            <td align="center">
-                <img src="/path/to/logo.png" alt="Logo" width="64" class="logo"/>
-            </td>
+            {{-- <td align="center">
+                <img src="{{ public_path('media/img/default_logo.jpg') }}" alt="Logo" width="64" class="logo"/>
+            </td> --}}
             <td align="right" style="width: 40%;">
+                @if (empty($invoice->user->display_name))
+                    <h3>{{ $invoice->user->name }}</h3>
+                @else
+                    <h3>{{ $invoice->user->display_name }}</h3>
+                @endif
 
-                <h3>CompanyName</h3>
-                <pre>
+                @if (empty($invoice->user->display_address))
+                    
+                @else
+                    {{ $invoice->user->display_address }}
+                @endif
+                <br>
+                @if (empty($invoice->user->display_country))
+                    
+                @else
+                    {{ $invoice->user->display_country }}
+                @endif
+                <br>
+                @if (empty($invoice->user->email))
+                    
+                @else
+                    {{ $invoice->user->email }}
+                @endif
+                
+                {{-- <pre>
                     Street 26
                     123456 City
                     United Kingdom
-                </pre>
+                </pre> --}}
             </td>
         </tr>
 
@@ -90,7 +123,7 @@
     </pre>
     <table width="100%">
         <thead>
-        <tr style="background-color:#1e1e2d; color:#fff">
+        <tr style="background-color:{{ $color }}; color:#fff">
             <th align="left">Produkt</th>
             <th align="left">Kolicina</th>
             <th align="left">Cena brez DDV</th>

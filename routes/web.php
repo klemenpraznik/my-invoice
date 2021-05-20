@@ -4,9 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\DescriptionPageController::class, 'index']);
+
 // Home controller
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings');
+Route::patch('/settings/{user}', [App\Http\Controllers\HomeController::class, 'update']);
 Route::get('/about-project', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 
 // Categories controller

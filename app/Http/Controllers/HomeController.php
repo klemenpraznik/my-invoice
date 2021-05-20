@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -32,5 +34,25 @@ class HomeController extends Controller
     public function about()
     {
         return view('about', ['page_title' => "O projektu"]);
+    }
+
+    public function settings()
+    {
+        //dd(Auth::user());
+        $user = Auth::user();
+        $page_title = "Nastavitve računa";
+        
+        return view('settings', compact('page_title', 'user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->display_name = $request['display_name'];
+        $user->display_address = $request['display_address'];
+        $user->display_country = $request['display_country'];
+        $user->display_color = $request['display_color'];
+        $user->save();
+        // dd($user);
+        return redirect("/");
     }
 }
