@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $page_title = 'Dashboard';
+        $page_title = 'Domov';
         $page_description = 'Some description for the page';
 
         return view('home', compact('page_title', 'page_description'));
