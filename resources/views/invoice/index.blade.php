@@ -125,7 +125,7 @@
         $("#invoices").on("click", ".js-delete",
             function () {
                 var button = $(this);
-                bootbox.confirm("Ali ste pripričani, da želite izbrisati ta izdelek?",
+                bootbox.confirm("Ali ste pripričani, da želite izbrisati ta račun?",
                     function (result) {
                         if (result) {
                             $.ajax({

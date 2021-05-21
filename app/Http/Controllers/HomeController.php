@@ -53,6 +53,6 @@ class HomeController extends Controller
         $user->display_color = $request['display_color'];
         $user->save();
         // dd($user);
-        return redirect("/");
+        return redirect("/home");
     }
 }
