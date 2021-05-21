@@ -9,7 +9,7 @@
                 <div class="login-form text-center p-7 position-relative overflow-hidden">
                     <div class="d-flex flex-center mb-15">
                         <a href="#">
-                            <img src="{{ asset('/media/img/logo-2.png') }}" class="max-h-75px w-100" alt="" />
+                            <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/my-logo.png') }}"/>
                         </a>
                     </div>
                     <div class="login-signin">
